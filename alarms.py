@@ -18,7 +18,6 @@ class alarm:
         this.usePuzzle = usePuzzle
         this.activate = True
         this.wakeTime = 104 #tempo de desativacao AVG + 20%
-        this.currentIndex = 0
         
         #POPULATION MAKER FOR GENETIC
         transfer = copy.copy(this)
@@ -45,8 +44,10 @@ class alarm:
         print("AI Enabled: " + str(this.useGenetic))
         print("Puzzle Enabled: " + str(this.usePuzzle))
         print("Activated: " + str(this.activate))
+    
+    def get_wakeTime(this):
 
-
+        return this.wakeTime
 
         
         

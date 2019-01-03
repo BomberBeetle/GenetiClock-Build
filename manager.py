@@ -7,6 +7,7 @@ import multiprocessing
 from pygame import mixer
 import os
 import random
+import operator
 
 class manager:
    
@@ -93,12 +94,8 @@ class manager:
 
     def execute_genetic(this, index):
         
-        #Fitness function :
-        this.alarms[index].population.alarms.sort(key = this.get_wakeTime)
-        this.set_fitness(index)
-        
-        #Selection (just sorts again): 
-        this.alarms[index].population.alarms.sort(key = this.get_wakeTime)
+        #Sort by fitness
+        this.alarms[index].population.alarms.sort(key = lambda x: x.wakeTime)        
 
         #Breeding
         parent1 = copy.copy(this.alarms[index].population.alarms[0])
@@ -106,21 +103,25 @@ class manager:
         breedVolume = bool(random.getrandbits(1))
         breedMus = bool(random.getrandbits(1))
         breedPuzzle = bool(random.getrandbits(1))
+        timesSwitched = 0
         
         if breedVolume:
 
             parent1.volume, parent2.volume = parent2.volume, parent1.volume
+            timesSwitched += 1
 
         if breedMus:
                 
             parent1.mus, parent2.mus = parent2.mus, parent1.mus
+            timesSwitched += 1
 
         if breedPuzzle:
 
             parent1.usePuzzle, parent2.usePuzzle = parent2.usePuzzle, parent1.usePuzzle
+            timesSwitched += 1
 
-        parent1.wakeTime = 130
-        parent2.wakeTime = 130
+        parent1.wakeTime = parent2.wakeTime*((33*timesSwitched)/100) + parent1.wakeTime*((33*3 - timesSwitched)/100)
+        parent2.wakeTime = parent1.wakeTime*((33*timesSwitched)/100) + parent2.wakeTime*((33*3 - timesSwitched)/100)
 
         #Mutation
         this.mutate(parent1)
@@ -128,24 +129,24 @@ class manager:
         this.alarms[index].population.alarms[len(this.alarms[index].population.alarms) - 1] = parent1
         this.alarms[index].population.alarms[len(this.alarms[index].population.alarms) - 2] = parent2
 
-        #re-fitness para classificar offspring
-        this.set_fitness(index)
 
         #re-sort para colocar o alarme ativo da população como o mais fit (menor wakeTime)
-        this.alarms[index].population.alarms.sort(key = this.get_wakeTime)
+        this.alarms[index].population.alarms.sort(key = lambda x: x.wakeTime)
 
+        
         #set do alarme ativo para o mais fit
         this.alarms[index].mus = this.alarms[index].population.alarms[0].mus
         this.alarms[index].volume = this.alarms[index].population.alarms[0].volume
         this.alarms[index].usePuzzle = this.alarms[index].population.alarms[0].usePuzzle
-
+        
         #succ
         
         
     def get_wakeTime(this, alarm):
 
         return alarm.wakeTime
-            
+
+    #Fitness prediction function (too aggresive)        
     def set_fitness(this, index):
         
         for x in range( 2, len(this.alarms[index].population.alarms)):
@@ -186,15 +187,15 @@ class manager:
         mutateMus = random.randint(0, 101)
         mutatePuzzle = random.randint(0, 101)
 
-        if mutateVolume < 37:
+        if mutateVolume < 60:
                 
-            alarm.volume += mutateVolume*random.choice([-1,1])     
+            alarm.volume += (mutateVolume/2)*random.choice([-1,1])     
 
-        if mutateMus < 37:
+        if mutateMus < 60:
 
             alarm.mus = this.avaibleSongs[random.randint(0,len(this.avaibleSongs) -1)]
 
-        if mutatePuzzle < 37:
+        if mutatePuzzle < 60:
 
             alarm.usePuzzle = bool(random.getrandbits(1))
         
