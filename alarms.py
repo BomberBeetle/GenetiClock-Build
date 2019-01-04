@@ -28,7 +28,7 @@ class alarm:
         for i in range(0,5):
             
             transfer.volume = this.volume + random.randint(-15, 15)
-            transfer.mus = this.population.avaibleSongs[random.randint(0,len(this.population.avaibleSongs) - 1)]
+            transfer.mus = this.population.avaibleSongs[random.randint(0 ,len(this.population.avaibleSongs) - 1)]
             transfer.usePuzzle = bool(random.getrandbits(1))
             transfer.wakeTime = 130
             this.population.add_alarm(transfer)
