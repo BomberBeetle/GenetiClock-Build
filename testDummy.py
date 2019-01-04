@@ -25,14 +25,11 @@ for i in range(0, 5):
 
     mng.alarms[0].population.alarms[0].wakeTime -= mng.alarms[0].population.alarms[0].volume - 50
 
-    mng.execute_genetic(0)
-
     print(mng.alarms[0].population.alarms[0].wakeTime)
 
-print(mng.alarms[0].population.alarms[0].wakeTime)
-print(mng.alarms[0].population.alarms[0].volume)
+    mng.execute_genetic(0)
 
-        
+            
         
 
     
