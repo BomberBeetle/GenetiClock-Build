@@ -11,7 +11,7 @@ mng= manager.manager()
 
 mng.add_alarm(a)
 
-for i in range(0, 5):
+for i in range(0, 720):
 
     mng.alarms[0].population.alarms[0].wakeTime = copy.copy(standardTime)
     
@@ -25,12 +25,13 @@ for i in range(0, 5):
 
     mng.alarms[0].population.alarms[0].wakeTime -= mng.alarms[0].population.alarms[0].volume - 50
 
-    mng.execute_genetic(0)
-
     print(mng.alarms[0].population.alarms[0].wakeTime)
 
-print(mng.alarms[0].population.alarms[0].wakeTime)
-print(mng.alarms[0].population.alarms[0].volume)
+    mng.execute_genetic(0)
+
+    
+
+
 
         
         

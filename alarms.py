@@ -24,7 +24,7 @@ class alarm:
         this.population = manager.manager()
         this.population.add_alarm(transfer)
         
-        for i in range(0,5):
+        for i in range(0,4):
             
             transfer.volume = this.volume + random.randint(-15, 15)
             transfer.mus = this.population.avaibleSongs[random.randint(0,len(this.population.avaibleSongs) - 1)]
