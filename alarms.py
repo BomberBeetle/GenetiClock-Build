@@ -19,10 +19,11 @@ class alarm:
         this.useGenetic = useGenetic
         this.usePuzzle = usePuzzle
         this.activate = True
-        this.wakeTime = 160 #tempo de desativacao AVG + 20%
+        this.wakeTime = 160
         
         #POPULATION MAKER FOR GENETIC
         transfer = copy.copy(this)
+        transfer.wakeTime = 200
         this.population = manager.manager()
         this.population.add_alarm(transfer)
         
@@ -31,7 +32,6 @@ class alarm:
             transfer.volume = this.volume + random.randint(-15, 15) 
             transfer.mus = this.population.avaibleSongs[random.randint(0,len(this.population.avaibleSongs) - 1)]
             transfer.usePuzzle = bool(random.getrandbits(1))
-            transfer.wakeTime = 200
             this.population.add_alarm(transfer)
         
 
