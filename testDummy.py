@@ -15,7 +15,12 @@ mng.add_alarm(a)
 
 waketimes = 0
 
-for i in range(0, 1000):
+#cycles to do
+cycles = 10000
+
+#number of days in each cycle
+days = 6
+for i in range(0, cycles+1):
 
     randPuzzle = bool(random.getrandbits(1))
 
@@ -23,9 +28,10 @@ for i in range(0, 1000):
 
     randSong = mng.avaibleSongs[random.randint(0,len(mng.avaibleSongs) - 1)]
     
-    for j in range(0, 31):
+    mng.alarms[0] = alarms.alarm("Test", datetime.datetime.now, True, mng.avaibleSongs[random.randint(0,len(mng.avaibleSongs) - 1)], random.randint(0, 101),True,bool(random.getrandbits(1)) )
 
-        mng.alarms[0] = alarms.alarm("Test", datetime.datetime.now, True, mng.avaibleSongs[random.randint(0,len(mng.avaibleSongs) - 1)], random.randint(0, 101),True,bool(random.getrandbits(1)) )
+    for j in range(0, days+1):
+        
 
         mng.alarms[0].population.alarms[0].wakeTime = copy.copy(standardTime)
     
@@ -38,16 +44,18 @@ for i in range(0, 1000):
             mng.alarms[0].population.alarms[0].wakeTime -= 30
 
         mng.alarms[0].population.alarms[0].wakeTime -= mng.alarms[0].population.alarms[0].volume - randVolume  
-        if j == 30:
+
+        if j == days:
             
            waketimes += mng.alarms[0].population.alarms[0].wakeTime
+           
         else:
             
             mng.execute_genetic(0)
 
 
 
-print("Final: " , waketimes/1000)
+print("Final: " , waketimes/cycles)
 
 
     

@@ -93,10 +93,13 @@ class manager:
                     this.avaibleSongs.append(filename)
 
     def execute_genetic(this, index):
+
         
         #Sort by fitness
-        this.alarms[index].population.alarms.sort(key = lambda x: x.wakeTime)        
-
+        #this.alarms[index].population.alarms.sort(key = lambda x: x.wakeTime)        
+        #this.set_fitness(this.tr)
+        this.alarms[index].population.alarms.sort(key = lambda x: x.wakeTime)
+        
         #Breeding
         parent1 = copy.copy(this.alarms[index].population.alarms[0])
         parent2 = copy.copy(this.alarms[index].population.alarms[1])
@@ -122,6 +125,9 @@ class manager:
 
         parent1.wakeTime = parent2.wakeTime*((33*timesSwitched)/100) + parent1.wakeTime*((33*3 - timesSwitched)/100)
         parent2.wakeTime = parent1.wakeTime*((33*timesSwitched)/100) + parent2.wakeTime*((33*3 - timesSwitched)/100)
+        #parent1.wakeTime = 200
+        #parent2.wakeTime = 200
+
 
         #Mutation
         this.mutate(parent1)
@@ -187,15 +193,15 @@ class manager:
         mutateMus = random.randint(0, 101)
         mutatePuzzle = random.randint(0, 101)
 
-        if mutateVolume < 35:
+        if mutateVolume < 20:
                 
             alarm.volume += (mutateVolume)*random.choice([-1,1])     
 
-        if mutateMus < 35:
+        if mutateMus < 20:
 
             alarm.mus = this.avaibleSongs[random.randint(0,len(this.avaibleSongs) -1)]
 
-        if mutatePuzzle < 35:
+        if mutatePuzzle < 20:
 
             alarm.usePuzzle = bool(random.getrandbits(1))
         
