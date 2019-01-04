@@ -1,0 +1,7 @@
+*.pyc
+*.pyo
+*.pkl
+mp3
+.tmp.drivedownload
+__pycache__
+
