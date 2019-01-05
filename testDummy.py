@@ -5,7 +5,7 @@ import copy
 import random
 import time
 
-standardTime = 300
+standardTime = 100
 
 a = alarms.alarm("Oh.", datetime.datetime.now(), True, "battle.ogg",50,True, False)
 
@@ -37,13 +37,13 @@ for i in range(0, cycles+1):
     
         if mng.alarms[0].population.alarms[0].mus == randSong:
 
-            mng.alarms[0].population.alarms[0].wakeTime -= 30
+            mng.alarms[0].population.alarms[0].wakeTime -= 33
 
         if mng.alarms[0].population.alarms[0].usePuzzle == randPuzzle:
 
-            mng.alarms[0].population.alarms[0].wakeTime -= 30
+            mng.alarms[0].population.alarms[0].wakeTime -= 33
 
-        mng.alarms[0].population.alarms[0].wakeTime -= mng.alarms[0].population.alarms[0].volume - randVolume  
+        mng.alarms[0].population.alarms[0].wakeTime -= (mng.alarms[0].population.alarms[0].volume - randVolume)/3  
 
         if j == days:
             
@@ -55,7 +55,7 @@ for i in range(0, cycles+1):
 
 
 
-print("Final: " , waketimes/cycles)
+print("Final: " , 100 - waketimes/cycles, "% eff")
 
 
     

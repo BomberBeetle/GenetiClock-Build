@@ -193,15 +193,15 @@ class manager:
         mutateMus = random.randint(0, 101)
         mutatePuzzle = random.randint(0, 101)
 
-        if mutateVolume < 20:
+        if mutateVolume < 35:
                 
             alarm.volume += (mutateVolume)*random.choice([-1,1])     
 
-        if mutateMus < 20:
+        if mutateMus < 40:
 
             alarm.mus = this.avaibleSongs[random.randint(0,len(this.avaibleSongs) -1)]
 
-        if mutatePuzzle < 20:
+        if mutatePuzzle < 35:
 
             alarm.usePuzzle = bool(random.getrandbits(1))
         
